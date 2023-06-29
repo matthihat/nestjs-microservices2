@@ -8,7 +8,9 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     @Inject('MICROSERVICE1') private readonly client: ClientProxy,
-  ) {}
+  ) {
+    console.log(process.env['NODE_ENV']);
+  }
 
   @Get()
   getHello(): string {
