@@ -2,14 +2,18 @@ import { Controller, Get, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { WinstonLogger } from './winston.logger';
+import { SERVICENAME } from './constants';
 
 @Controller()
 export class AppController {
+  private readonly logger = new WinstonLogger();
+
   constructor(
     private readonly appService: AppService,
     @Inject('MICROSERVICE1') private readonly client: ClientProxy,
   ) {
-    console.log(process.env['NODE_ENV']);
+    this.logger.debug('Instantiating ' + SERVICENAME);
   }
 
   @Get()
