@@ -16,7 +16,7 @@ const microserviceOptions = {
 @Module({
   imports: [
     ClientsModule.register([
-      { ...microserviceOptions, transport: Transport.RMQ },
+      { ...microserviceOptions, transport: Transport.RMQ }, // Register to be able to communicate through RMQ.
     ]),
   ],
   controllers: [AppController],
