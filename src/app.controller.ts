@@ -4,6 +4,8 @@ import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import { WinstonLogger } from '@matthihat/customlogger';
 import { SERVICENAME } from './constants';
+import { EventMessage } from '@matthihat/custommodels/dist/events/eventmessage';
+import { Origin } from '@matthihat/custommodels/dist/enums/origin';
 
 @Controller()
 export class AppController {
@@ -23,9 +25,16 @@ export class AppController {
 
   @Get('/send')
   async sendEvent(message: string) {
-    return await firstValueFrom(
-      this.client.emit('message_pattern', 'Hello from MS2'),
-    );
+    const data: EventMessage = {
+      metadata: {
+        eventId: 'Id of event',
+        eventName: 'Name of event',
+        origin: Origin.TEAM,
+        timestamp: new Date(),
+      },
+      payload: { someData: 'Put data here' },
+    };
+    return await firstValueFrom(this.client.emit('message_pattern', data));
   }
 
   @Get('/sendMessage')
