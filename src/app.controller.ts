@@ -2,7 +2,7 @@ import { Controller, Get, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { WinstonLogger } from './winston.logger';
+import { WinstonLogger } from '@matthihat/customlogger';
 import { SERVICENAME } from './constants';
 
 @Controller()

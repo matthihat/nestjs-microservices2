@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { WinstonLoggerModule } from './winston-logger.module';
+import { GlobalExceptionsHandler } from './GlobalExceptionsHandler';
 
 const microserviceOptions = {
   name: 'MICROSERVICE1',
@@ -18,8 +20,9 @@ const microserviceOptions = {
     ClientsModule.register([
       { ...microserviceOptions, transport: Transport.RMQ }, // Register to be able to communicate through RMQ.
     ]),
+    WinstonLoggerModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, GlobalExceptionsHandler],
 })
 export class AppModule {}
